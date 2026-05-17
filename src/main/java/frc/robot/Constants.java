@@ -17,6 +17,9 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
+  public static class ShooterConstants {
+    public static final double kRotation = 0; //TODO: Find me!
+  }
   public static class PIDConstants {
     public static class Drive {
       public static final double kDriveP = 0;

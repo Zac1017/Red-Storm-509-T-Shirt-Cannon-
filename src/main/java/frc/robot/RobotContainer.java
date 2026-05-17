@@ -6,6 +6,8 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.commands.ShooterCommand;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TankDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -20,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final TankDrive tankDrive = new TankDrive();
+  private final Shooter shooter = new Shooter();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController operatorController =
@@ -45,9 +48,14 @@ public class RobotContainer {
    
     tankDrive.setDefaultCommand(new DefaultDriveCommand(
       tankDrive, 
-      operatorController.getLeftX(), 
-      operatorController.getLeftY()
+      () -> operatorController.getLeftX(), 
+      () -> operatorController.getLeftY()
     ));
+
+    operatorController.rightTrigger().onTrue(new ShooterCommand(shooter, ()-> false));
+    operatorController.rightBumper().onTrue(new ShooterCommand(shooter, () -> true));
+    
+    
   }
 
   /**
