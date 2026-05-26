@@ -10,7 +10,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class TankDrive extends SubsystemBase{
+public class TankDrive extends SubsystemBase {
 
     private final TalonFX frontRight = new TalonFX(0);
     private final TalonFX frontLeft = new TalonFX(0);
@@ -24,6 +24,9 @@ public class TankDrive extends SubsystemBase{
 
         TalonFXConfiguration leftWheelConfigs = new TalonFXConfiguration();
         
+            leftWheelConfigs.CurrentLimits.SupplyCurrentLimit = 40;
+            leftWheelConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
+
             leftWheelConfigs.Slot0.kP = Constants.PIDConstants.Drive.kDriveP;
             leftWheelConfigs.Slot0.kI = Constants.PIDConstants.Drive.kDriveI;
             leftWheelConfigs.Slot0.kD = Constants.PIDConstants.Drive.kDriveD;
@@ -33,10 +36,12 @@ public class TankDrive extends SubsystemBase{
             leftWheelConfigs.Slot0.kA = Constants.SVAConstants.Drive.kDriveA;
 
             leftWheelConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-
             leftWheelConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //Check if Correct
 
         TalonFXConfiguration rightWheelConfigs = new TalonFXConfiguration();
+
+            rightWheelConfigs.CurrentLimits.SupplyCurrentLimit = 40;
+            rightWheelConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
 
             rightWheelConfigs.Slot0.kP = Constants.PIDConstants.Drive.kDriveP;
             rightWheelConfigs.Slot0.kI = Constants.PIDConstants.Drive.kDriveI;
@@ -47,7 +52,6 @@ public class TankDrive extends SubsystemBase{
             rightWheelConfigs.Slot0.kA = Constants.SVAConstants.Drive.kDriveA;
 
             rightWheelConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-
             rightWheelConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; //Check if Correct
     }
 
@@ -68,10 +72,6 @@ public class TankDrive extends SubsystemBase{
 
         driveLeft(forward + right);
         driveRight(forward - right);
-        
-    }
-    @Override
-    public void periodic() {
         
     }
 
