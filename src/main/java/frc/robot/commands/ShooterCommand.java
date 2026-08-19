@@ -1,32 +1,64 @@
-// package frc.robot.commands;
+package frc.robot.commands;
 
-// import java.util.function.BooleanSupplier;
 
-// import edu.wpi.first.wpilibj.Solenoid;
-// import edu.wpi.first.wpilibj2.command.Command;
-// import frc.robot.subsystems.Shooter;
+import java.util.function.BooleanSupplier;
 
-// public class ShooterCommand extends Command {
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
+import frc.robot.Constants;
+import frc.robot.subsystems.Shooter;
 
-//     boolean compressorBoolean;
-//     Shooter shooter;
+public class ShooterCommand extends Command {
 
-//     Solenoid compressorSolenoid = new Solenoid(null, 0);
-//     Solenoid chamberSolenoid = new Solenoid(null, 0);
 
-//     public ShooterCommand(Shooter shooter, BooleanSupplier compressorBooleanSupplier){
-//         this.compressorBoolean = compressorBooleanSupplier.getAsBoolean();
-//         this.shooter = shooter;
-//         addRequirements(shooter);
-//     }
+    Shooter shooter;
+    double elevation;
 
-//     public void shoot(){
-//         if (compressorBoolean) {
-//             shooter.close(chamberSolenoid);
-//             shooter.open(compressorSolenoid);
-//         } else {
-//             shooter.close(compressorSolenoid);
-//             shooter.open(chamberSolenoid);
-//         }
-//     }
-// }
+    public ShooterCommand(Shooter shooter, double elevation) {
+        this.shooter = shooter;
+        this.elevation = elevation;
+        addRequirements(shooter);
+    }
+
+    @Override
+    public void execute() {
+
+        Commands.sequence(
+
+                //elevate shooter according to button pressed
+                Commands.runOnce(() -> shooter.elevateShooter(elevation)),
+
+                //rotate shooter
+                Commands.runOnce(() -> shooter.rotate(Constants.ShooterConstants.kRotation)),   
+        
+                //seal barrel solenoid
+                //open charge tank solenoid
+                //close charge tank solenoid
+                //open chamber tank solenoid
+                //close chamber tank solenoid
+                //t-shirt fires
+
+                Commands.runOnce(() -> shooter.close(shooter.kSealSolenoid)),
+                Commands.waitSeconds(2.0),
+
+                Commands.runOnce(() -> shooter.open(shooter.kChargeTankSolenoid)),
+                Commands.waitSeconds(2.0),
+
+                Commands.runOnce(() -> shooter.close(shooter.kChargeTankSolenoid)),
+                Commands.waitSeconds(1.0),
+
+                Commands.runOnce(() -> shooter.open(shooter.kChamberTankSolenoid)),
+                Commands.waitSeconds(2.0),
+
+                Commands.runOnce(() -> shooter.close(shooter.kChamberTankSolenoid))
+                
+                ).schedule();
+
+   
+
+    }
+
+    
+
+    
+}
