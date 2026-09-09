@@ -17,7 +17,7 @@ public class Shooter extends SubsystemBase {
     private final TalonFX kRotationMotor = new TalonFX(0);
 
     private final TalonFX kElevationMotor = new TalonFX(0);
-
+                                            // new Solenoid(module, PneumaticsModuleType, channel);
     public final Solenoid kChargeTankSolenoid = new Solenoid(0, PneumaticsModuleType.CTREPCM, 0);
 
     public final Solenoid kChamberTankSolenoid = new Solenoid(1, PneumaticsModuleType.CTREPCM, 0);
