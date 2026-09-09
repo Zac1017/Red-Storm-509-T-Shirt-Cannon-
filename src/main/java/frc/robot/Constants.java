@@ -18,7 +18,8 @@ public final class Constants {
   }
 
   public static class ShooterConstants {
-    public static final double kRotation = 0; //TODO: Find me!
+    public static final double kRotation = 36; //TODO: Find me!
+    public static final double kGearRatio = 0; //TODO: Find me!
 
     public static class Elevation { 
       public static final double kElevationA = 0; //TODO: Find me!

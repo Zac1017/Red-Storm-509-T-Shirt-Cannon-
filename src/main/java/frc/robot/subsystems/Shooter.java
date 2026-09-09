@@ -60,10 +60,10 @@ public class Shooter extends SubsystemBase {
     }
 
     public void rotate(double angle) {
-        kRotationMotor.setControl(closedLoop.withPosition(angle));
+        kRotationMotor.setControl(closedLoop.withPosition((angle / 360.0d) * Constants.ShooterConstants.kGearRatio));
     }
 
     public void elevateShooter(double elevation){
-        kElevationMotor.setControl(closedLoop.withPosition(elevation));
+        kElevationMotor.setControl(closedLoop.withPosition((elevation / 360.0d) * Constants.ShooterConstants.kGearRatio));
     }
 }
