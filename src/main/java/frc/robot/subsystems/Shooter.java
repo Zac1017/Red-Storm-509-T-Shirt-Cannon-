@@ -68,10 +68,6 @@ public class Shooter extends SubsystemBase {
         solenoid.set(false);
     }
 
-    public void push(Solenoid solenoid) {
-        solenoid.set(true);
-    }
-
     public void rotate(double angle) {
         kRotationMotor.setControl(closedLoop.withPosition((angle / 360.0d) * Constants.ShooterConstants.kGearRatio));
     }
