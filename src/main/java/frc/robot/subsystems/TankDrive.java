@@ -54,6 +54,9 @@ public class TankDrive extends SubsystemBase {
 
             rightWheelConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             rightWheelConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; //Check if Correct
+
+            frontLeft.getConfigurator().apply(leftWheelConfigs);
+            backLeft.getConfigurator().apply(leftWheelConfigs);
     }
 
     public void driveLeft(double speed) {

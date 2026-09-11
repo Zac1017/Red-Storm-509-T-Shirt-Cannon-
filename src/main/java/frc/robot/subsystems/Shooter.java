@@ -31,19 +31,32 @@ public class Shooter extends SubsystemBase {
     
     public Shooter() {
         
-        TalonFXConfiguration driverConfig = new TalonFXConfiguration();
-
-        driverConfig.CurrentLimits.SupplyCurrentLimit = 40;
-        driverConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
+        TalonFXConfiguration rotationMotorConfig = new TalonFXConfiguration();
         
-        driverConfig.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
-        driverConfig.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
-        driverConfig.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
+        rotationMotorConfig.CurrentLimits.SupplyCurrentLimit = 40;
+        rotationMotorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         
-        driverConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        driverConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        rotationMotorConfig.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
+        rotationMotorConfig.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
+        rotationMotorConfig.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
+        
+        rotationMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+        rotationMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        
+        TalonFXConfiguration elevationMotorConfig = new TalonFXConfiguration(); 
 
-        kRotationMotor.getConfigurator().apply(driverConfig);
+        elevationMotorConfig.CurrentLimits.SupplyCurrentLimit = 40;
+        elevationMotorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
+
+        elevationMotorConfig.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
+        elevationMotorConfig.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
+        elevationMotorConfig.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
+
+        elevationMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
+        elevationMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        
+        kRotationMotor.getConfigurator().apply(rotationMotorConfig);
+        kElevationMotor.getConfigurator().apply(elevationMotorConfig);
 
     }
 
