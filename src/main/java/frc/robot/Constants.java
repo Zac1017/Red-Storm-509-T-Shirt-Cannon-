@@ -17,6 +17,24 @@ public final class Constants {
     public static final int kDriverControllerPort = 0;
   }
 
+  public static class DriveConstants { 
+    public static final double kMaxRPS = 100;
+    public static class PIDConstants {
+      public static class Drive {
+        public static final double kDriveP = 0;
+        public static final double kDriveI = 0;
+        public static final double kDriveD = 0;
+      }
+    }
+    public static class SVAConstants {    
+      public static class Drive {
+        public static final double kDriveS = 0;
+        public static final double kDriveV = 0;
+        public static final double kDriveA = 0;
+      }
+    }
+  }
+
   public static class ShooterConstants {
     public static final double kRotation = 36; 
     public static final double kGearRatio = 8; 
@@ -29,18 +47,5 @@ public final class Constants {
       public static final double kElevationX = 0; //TODO: Find me!
     }
   }
-  public static class PIDConstants {
-    public static class Drive {
-      public static final double kDriveP = 0;
-      public static final double kDriveI = 0;
-      public static final double kDriveD = 0;
-    }
-  }
-  public static class SVAConstants {    
-    public static class Drive {
-      public static final double kDriveS = 0;
-      public static final double kDriveV = 0;
-      public static final double kDriveA = 0;
-    }
-  }
+  
 }

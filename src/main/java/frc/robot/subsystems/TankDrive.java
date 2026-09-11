@@ -7,6 +7,7 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -27,13 +28,13 @@ public class TankDrive extends SubsystemBase {
             leftWheelConfigs.CurrentLimits.SupplyCurrentLimit = 40;
             leftWheelConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
 
-            leftWheelConfigs.Slot0.kP = Constants.PIDConstants.Drive.kDriveP;
-            leftWheelConfigs.Slot0.kI = Constants.PIDConstants.Drive.kDriveI;
-            leftWheelConfigs.Slot0.kD = Constants.PIDConstants.Drive.kDriveD;
+            leftWheelConfigs.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
+            leftWheelConfigs.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
+            leftWheelConfigs.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
 
-            leftWheelConfigs.Slot0.kS = Constants.SVAConstants.Drive.kDriveS;
-            leftWheelConfigs.Slot0.kV = Constants.SVAConstants.Drive.kDriveV;
-            leftWheelConfigs.Slot0.kA = Constants.SVAConstants.Drive.kDriveA;
+            leftWheelConfigs.Slot0.kS = Constants.DriveConstants.SVAConstants.Drive.kDriveS;
+            leftWheelConfigs.Slot0.kV = Constants.DriveConstants.SVAConstants.Drive.kDriveV;
+            leftWheelConfigs.Slot0.kA = Constants.DriveConstants.SVAConstants.Drive.kDriveA;
 
             leftWheelConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             leftWheelConfigs.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive; //Check if Correct
@@ -43,26 +44,28 @@ public class TankDrive extends SubsystemBase {
             rightWheelConfigs.CurrentLimits.SupplyCurrentLimit = 40;
             rightWheelConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
 
-            rightWheelConfigs.Slot0.kP = Constants.PIDConstants.Drive.kDriveP;
-            rightWheelConfigs.Slot0.kI = Constants.PIDConstants.Drive.kDriveI;
-            rightWheelConfigs.Slot0.kD = Constants.PIDConstants.Drive.kDriveD;
+            rightWheelConfigs.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
+            rightWheelConfigs.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
+            rightWheelConfigs.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
 
-            rightWheelConfigs.Slot0.kS = Constants.SVAConstants.Drive.kDriveS;
-            rightWheelConfigs.Slot0.kV = Constants.SVAConstants.Drive.kDriveV;
-            rightWheelConfigs.Slot0.kA = Constants.SVAConstants.Drive.kDriveA;
+            rightWheelConfigs.Slot0.kS = Constants.DriveConstants.SVAConstants.Drive.kDriveS;
+            rightWheelConfigs.Slot0.kV = Constants.DriveConstants.SVAConstants.Drive.kDriveV;
+            rightWheelConfigs.Slot0.kA = Constants.DriveConstants.SVAConstants.Drive.kDriveA;
 
             rightWheelConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
             rightWheelConfigs.MotorOutput.Inverted = InvertedValue.Clockwise_Positive; //Check if Correct
     }
 
     public void driveLeft(double speed) {
-        frontLeft.setControl(closedLoop.withVelocity(speed));
-        backLeft.setControl(closedLoop.withVelocity(speed));
+        frontLeft.setControl(closedLoop.withVelocity(speed * Constants.DriveConstants.kMaxRPS));
+        backLeft.setControl(closedLoop.withVelocity(speed * Constants.DriveConstants.kMaxRPS));
+        SmartDashboard.putNumber("Left Speed", speed * Constants.DriveConstants.kMaxRPS);
     }
 
     public void driveRight(double speed) {
-        frontRight.setControl(closedLoop.withVelocity(speed));
-        backRight.setControl(closedLoop.withVelocity(speed));
+        frontRight.setControl(closedLoop.withVelocity(speed * Constants.DriveConstants.kMaxRPS));
+        backRight.setControl(closedLoop.withVelocity(speed * Constants.DriveConstants.kMaxRPS));
+        SmartDashboard.putNumber("Right Speed", speed * Constants.DriveConstants.kMaxRPS);
     }
 
     public void drive(double forward, double right) {

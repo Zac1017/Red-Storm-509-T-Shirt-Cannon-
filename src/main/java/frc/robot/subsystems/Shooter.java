@@ -36,9 +36,9 @@ public class Shooter extends SubsystemBase {
         driverConfig.CurrentLimits.SupplyCurrentLimit = 40;
         driverConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         
-        driverConfig.Slot0.kP = Constants.PIDConstants.Drive.kDriveP;
-        driverConfig.Slot0.kI = Constants.PIDConstants.Drive.kDriveI;
-        driverConfig.Slot0.kD = Constants.PIDConstants.Drive.kDriveD;
+        driverConfig.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
+        driverConfig.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
+        driverConfig.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
         
         driverConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
         driverConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
