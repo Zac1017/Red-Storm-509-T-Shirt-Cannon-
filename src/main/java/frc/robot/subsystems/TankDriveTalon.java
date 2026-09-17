@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class TankDrive extends SubsystemBase {
+public class TankDriveTalon extends SubsystemBase {
 
     private final TalonFX frontRight = new TalonFX(0);
     private final TalonFX frontLeft = new TalonFX(0);
@@ -21,7 +21,7 @@ public class TankDrive extends SubsystemBase {
     private final VelocityDutyCycle closedLoop = new VelocityDutyCycle(0);
 
     
-    public TankDrive(){
+    public TankDriveTalon(){
 
         TalonFXConfiguration leftWheelConfigs = new TalonFXConfiguration();
         
