@@ -36,9 +36,9 @@ public class Shooter extends SubsystemBase {
         rotationMotorConfig.CurrentLimits.SupplyCurrentLimit = 40;
         rotationMotorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
         
-        rotationMotorConfig.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
-        rotationMotorConfig.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
-        rotationMotorConfig.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
+        // rotationMotorConfig.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
+        // rotationMotorConfig.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
+        // rotationMotorConfig.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
         
         rotationMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         rotationMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
@@ -48,9 +48,9 @@ public class Shooter extends SubsystemBase {
         elevationMotorConfig.CurrentLimits.SupplyCurrentLimit = 40;
         elevationMotorConfig.CurrentLimits.SupplyCurrentLimitEnable = true;
 
-        elevationMotorConfig.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
-        elevationMotorConfig.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
-        elevationMotorConfig.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
+        // elevationMotorConfig.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
+        // elevationMotorConfig.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
+        // elevationMotorConfig.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
 
         elevationMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         elevationMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
