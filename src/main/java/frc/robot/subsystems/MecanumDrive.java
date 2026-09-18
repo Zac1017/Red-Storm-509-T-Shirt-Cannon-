@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import java.util.function.BooleanSupplier;
@@ -7,6 +9,8 @@ import java.util.function.DoubleSupplier;
 
 import com.ctre.phoenix6.hardware.Pigeon2;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -36,6 +40,52 @@ public class MecanumDrive {
 
     public MecanumDrive(Pigeon2 pigeon) {
         this.pigeon = pigeon;
+
+        SparkMaxConfig frontRightConfig = new SparkMaxConfig();
+        SparkMaxConfig frontLeftConfig = new SparkMaxConfig();
+        SparkMaxConfig backRightConfig = new SparkMaxConfig();
+        SparkMaxConfig backLeftConfig = new SparkMaxConfig();
+
+        frontRightConfig.smartCurrentLimit(40).
+            idleMode(IdleMode.kCoast).
+            inverted(false);
+
+        frontLeftConfig.smartCurrentLimit(40).
+            idleMode(IdleMode.kCoast).
+            inverted(true);
+
+        backRightConfig.smartCurrentLimit(40).
+            idleMode(IdleMode.kCoast).
+            inverted(false);
+        
+        backLeftConfig.smartCurrentLimit(40).
+            idleMode(IdleMode.kCoast).
+            inverted(true);
+
+        // kResetSafeParameters restores defaults first, ensuring a clean setup
+        // kPersistParameters burns the settings to the flash memory dynamically
+
+        frontRight.configure(frontRightConfig, 
+            ResetMode.kResetSafeParameters, 
+            PersistMode.kPersistParameters
+        );
+
+        frontLeft.configure(frontLeftConfig,
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
+        );
+
+        backRight.configure(backRightConfig,
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
+        );
+
+        backLeft.configure(backLeftConfig,
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
+        );
+
+        
 
     }
 
