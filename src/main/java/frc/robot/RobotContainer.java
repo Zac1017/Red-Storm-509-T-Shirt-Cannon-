@@ -6,11 +6,15 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.DefaultDriveCommand;
+import frc.robot.commands.DefaultMecanumDriveCommand;
 import frc.robot.commands.ShooterCommand;
+import frc.robot.subsystems.MecanumDrive;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.TankDriveTalon;
 
 import java.util.function.BooleanSupplier;
+
+import com.ctre.phoenix6.hardware.Pigeon2;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -25,6 +29,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final TankDriveTalon tankDrive = new TankDriveTalon();
+  Pigeon2 pigeon = new Pigeon2(0);
+  private final MecanumDrive mecanum = new MecanumDrive(pigeon);
   private final Shooter shooter = new Shooter();
 
 
@@ -50,10 +56,17 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
    
-    tankDrive.setDefaultCommand(new DefaultDriveCommand(
-      tankDrive, 
-      () -> operatorController.getRightX(), 
-      () -> operatorController.getLeftY()
+    // tankDrive.setDefaultCommand(new DefaultDriveCommand(
+    //   tankDrive, 
+    //   () -> operatorController.getRightX(), 
+    //   () -> operatorController.getLeftY()
+    // ));
+
+    mecanum.setDefaultCommand(new DefaultMecanumDriveCommand(mecanum,
+      () -> operatorController.getLeftX(),
+      () -> operatorController.getLeftY(),
+      () -> operatorController.getRightX(),
+      () -> true
     ));
 
     operatorController.a().onTrue(

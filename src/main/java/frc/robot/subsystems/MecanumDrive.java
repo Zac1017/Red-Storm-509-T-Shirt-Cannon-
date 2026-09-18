@@ -17,9 +17,10 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class MecanumDrive {
+public class MecanumDrive extends SubsystemBase{
     private final SparkMax frontRight = new SparkMax(0, MotorType.kBrushed);
     private final SparkMax frontLeft = new SparkMax(1, MotorType.kBrushed);
     private final SparkMax backRight = new SparkMax(2, MotorType.kBrushed);
@@ -91,11 +92,11 @@ public class MecanumDrive {
 
     public void drive(Translation2d translationMetersPerSecond, 
     double omega, 
-    boolean fieldRelative,
-    ChassisSpeeds chassisSpeeds
+    boolean fieldRelative
     ) {
+        ChassisSpeeds chassisSpeeds;
         if (fieldRelative) {
-            chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
+             chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(
                 translationMetersPerSecond.getX(),
                 translationMetersPerSecond.getY(),
                 omega,
