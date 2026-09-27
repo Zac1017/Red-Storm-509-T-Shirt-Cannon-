@@ -23,6 +23,8 @@ public final class Constants {
     public static final double kMaxRPS = 100;
 
     public static class Drive {
+        
+
         public static final Translation2d kFrontLeftLocation = new Translation2d(+0, +0);
         public static final Translation2d kFrontRightLocation = new Translation2d(+0, -0);
         public static final Translation2d kBackLeftLocation = new Translation2d(-0, +0);
@@ -30,7 +32,9 @@ public final class Constants {
       }
       
     public static class PIDConstants {
-      
+        public static final double kDriveP = 0.01; //TODO: Find me!
+        public static final double kDriveI = 0.00; //TODO: Find me!
+        public static final double kDriveD = 0.00; //TODO: Find me!
     }
     public static class SVAConstants {    
       public static class Drive {
@@ -45,6 +49,10 @@ public final class Constants {
     public static final double kRotation = 36; 
     public static final double kGearRatio = 8; 
     public static final double kdefaultElevation = 0; //TODO: Find me!
+    public static final double zeroeCurrentThreshold = 35.0; //TODO: Find me!
+    public static final double zeroVoltage = 1.5; //TODO: Find me!
+    public static final double kPressureThreshold = 100.0; //TODO: Find me!
+    
 
     public static class Elevation { 
       public static final double kElevationA = 0; //TODO: Find me!

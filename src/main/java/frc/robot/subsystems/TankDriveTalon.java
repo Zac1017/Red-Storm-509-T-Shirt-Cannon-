@@ -14,9 +14,9 @@ import frc.robot.Constants;
 public class TankDriveTalon extends SubsystemBase {
 
     private final TalonFX frontRight = new TalonFX(0);
-    private final TalonFX frontLeft = new TalonFX(0);
-    private final TalonFX backRight = new TalonFX(0);
-    private final TalonFX backLeft = new TalonFX(0);
+    private final TalonFX frontLeft = new TalonFX(1);
+    private final TalonFX backRight = new TalonFX(2);
+    private final TalonFX backLeft = new TalonFX(3);
 
     private final VelocityDutyCycle closedLoop = new VelocityDutyCycle(0);
 
@@ -28,9 +28,9 @@ public class TankDriveTalon extends SubsystemBase {
             leftWheelConfigs.CurrentLimits.SupplyCurrentLimit = 40;
             leftWheelConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
 
-            // leftWheelConfigs.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
-            // leftWheelConfigs.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
-            // leftWheelConfigs.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
+            leftWheelConfigs.Slot0.kP = Constants.DriveConstants.PIDConstants.kDriveP;
+            leftWheelConfigs.Slot0.kI = Constants.DriveConstants.PIDConstants.kDriveI;
+            leftWheelConfigs.Slot0.kD = Constants.DriveConstants.PIDConstants.kDriveD;
 
             leftWheelConfigs.Slot0.kS = Constants.DriveConstants.SVAConstants.Drive.kDriveS;
             leftWheelConfigs.Slot0.kV = Constants.DriveConstants.SVAConstants.Drive.kDriveV;
@@ -44,9 +44,9 @@ public class TankDriveTalon extends SubsystemBase {
             rightWheelConfigs.CurrentLimits.SupplyCurrentLimit = 40;
             rightWheelConfigs.CurrentLimits.SupplyCurrentLimitEnable = true;
 
-            // rightWheelConfigs.Slot0.kP = Constants.DriveConstants.PIDConstants.Drive.kDriveP;
-            // rightWheelConfigs.Slot0.kI = Constants.DriveConstants.PIDConstants.Drive.kDriveI;
-            // rightWheelConfigs.Slot0.kD = Constants.DriveConstants.PIDConstants.Drive.kDriveD;
+            rightWheelConfigs.Slot0.kP = Constants.DriveConstants.PIDConstants.kDriveP;
+            rightWheelConfigs.Slot0.kI = Constants.DriveConstants.PIDConstants.kDriveI;
+            rightWheelConfigs.Slot0.kD = Constants.DriveConstants.PIDConstants.kDriveD;
 
             rightWheelConfigs.Slot0.kS = Constants.DriveConstants.SVAConstants.Drive.kDriveS;
             rightWheelConfigs.Slot0.kV = Constants.DriveConstants.SVAConstants.Drive.kDriveV;
