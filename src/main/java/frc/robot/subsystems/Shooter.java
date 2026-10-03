@@ -10,6 +10,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -27,6 +28,7 @@ public class Shooter extends SubsystemBase {
     public double zeroPosition;
     public double targetElevation;
     public double globalRotation;
+    public int barrelIndex = 0;
     
     //two open close (chambers)
     //two push (seal)
@@ -85,8 +87,21 @@ public class Shooter extends SubsystemBase {
      * Rotates barrel "angle" amount of degrees
      * @param angle
      */
-    public void rotate(double angle) {
+    public void rotateToNextBarrel(double angle) {
+        if (!hasZeroedPosition) {
+            return;
+        }
+
         kRotationMotor.setControl(closedLoop.withPosition(((globalRotation += angle) / 360.0d) * Constants.ShooterConstants.kGearRatio));
+        barrelIndex ++;
+
+        if (barrelIndex >= Constants.ShooterConstants.kBarrelCount) {
+            barrelIndex = 0;
+        }
+    }
+
+    public boolean isReadyToFire() {
+        return isRotated() && isElevated() && hasZeroedPosition;
     }
 
     /**
@@ -112,7 +127,7 @@ public class Shooter extends SubsystemBase {
                 globalRotation = 0;
                 // zeroPosition = kRotationMotor.getPosition().getValueAsDouble();
                 hasZeroedPosition = true;
-                globalRotation = 0;
+                barrelIndex = 0;
             } else {
                 kRotationMotor.setControl(openLoop.withOutput(Constants.ShooterConstants.zeroVoltage));
             }
@@ -157,6 +172,14 @@ public class Shooter extends SubsystemBase {
 
     @Override
     public void periodic() {
+        SmartDashboard.putBoolean("Shooter Zeroed", hasZeroedPosition);
+        SmartDashboard.putNumber("Shooter Rotation (degrees)", 
+            kRotationMotor.getPosition().getValueAsDouble() * 360.0d / Constants.ShooterConstants.kGearRatio);
+        SmartDashboard.putNumber("Shooter Elevation", 
+            kElevationMotor.getPosition().getValueAsDouble() * 360.0d / Constants.ShooterConstants.kGearRatio);
+        SmartDashboard.putNumber("Shooter Global Rotation", globalRotation);
+        SmartDashboard.putNumber("Shooter Barrel Index", barrelIndex);
+        
         zeroBarrel();
     }
 }

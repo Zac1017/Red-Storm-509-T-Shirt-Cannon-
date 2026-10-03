@@ -71,19 +71,20 @@ public class ShooterCommand extends Command {
                 if (!elevationDone) {
                     shooter.elevateShooter(elevation);
                     elevationDone = true;
+                    
                 }
 
-                if (shooter.isElevated()) {
+                if (shooter.isElevated() && shooter.isReadyToFire()) {
                     state = ShooterState.ROTATING;
                 }
                 break;
             case ROTATING:
                 if (!rotationDone) {
-                    shooter.rotate(Constants.ShooterConstants.kRotation);
+                    shooter.rotateToNextBarrel(Constants.ShooterConstants.kRotation);
                     rotationDone = true;
                 }
 
-                if (shooter.isRotated()) {
+                if (shooter.isRotated() && shooter.isReadyToFire()) {
                     shooter.close(shooter.kSealSolenoid);
                     state = ShooterState.PRESSURIZING;
                 }

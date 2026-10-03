@@ -52,6 +52,7 @@ public final class Constants {
     public static final double zeroeCurrentThreshold = 35.0; //TODO: Find me!
     public static final double zeroVoltage = 1.5; //TODO: Find me!
     public static final double kPressureThreshold = 100.0; //TODO: Find me!
+    public static final int kBarrelCount = 9; //TODO: Find me!
     
 
     public static class Elevation { 
