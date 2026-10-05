@@ -57,6 +57,8 @@ public class TankDriveTalon extends SubsystemBase {
 
             frontLeft.getConfigurator().apply(leftWheelConfigs);
             backLeft.getConfigurator().apply(leftWheelConfigs);
+            frontRight.getConfigurator().apply(rightWheelConfigs);
+            backRight.getConfigurator().apply(rightWheelConfigs);
     }
 
     public void driveLeft(double speed) {
