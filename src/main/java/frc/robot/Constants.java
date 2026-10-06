@@ -53,7 +53,11 @@ public final class Constants {
     public static final double zeroVoltage = 1.5; //TODO: Find me!
     public static final double kPressureThreshold = 100.0; //TODO: Find me!
     public static final int kBarrelCount = 9; //TODO: Find me!
-    
+    public static final double kElevatingTimout = 5.0; //TODO: Find me!
+    public static final double kRotatingTimeout = 5.0; //TODO: Find me!
+    public static final double kPressurizingTimeout = 5.0; //TODO: Find me!
+    public static final double kFiringTimeout = 5.0; //TODO: Find me!
+    public static final double kZeroingTimeout = 5.0; //TODO: Find me!
 
     public static class Elevation { 
       public static final double kElevationA = 0; //TODO: Find me!

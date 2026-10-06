@@ -49,6 +49,7 @@ public class Shooter extends SubsystemBase {
         
         rotationMotorConfig.MotorOutput.NeutralMode = NeutralModeValue.Coast;
         rotationMotorConfig.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+        rotationMotorConfig.Feedback.SensorToMechanismRatio = Constants.ShooterConstants.kGearRatio;
         
         TalonFXConfiguration elevationMotorConfig = new TalonFXConfiguration(); 
 
@@ -92,7 +93,7 @@ public class Shooter extends SubsystemBase {
             return;
         }
 
-        kRotationMotor.setControl(closedLoop.withPosition(((globalRotation += angle) / 360.0d) * Constants.ShooterConstants.kGearRatio));
+        kRotationMotor.setControl(closedLoop.withPosition(((globalRotation += angle) / 360.0d)));
         barrelIndex ++;
 
         if (barrelIndex >= Constants.ShooterConstants.kBarrelCount) {
@@ -111,7 +112,7 @@ public class Shooter extends SubsystemBase {
     public void elevateShooter(double elevation){
         targetElevation = elevation;
 
-        kElevationMotor.setControl(closedLoop.withPosition((elevation / 360.0d) * Constants.ShooterConstants.kGearRatio));
+        kElevationMotor.setControl(closedLoop.withPosition((elevation / 360.0d)));
     }
     
     /**
@@ -147,7 +148,7 @@ public class Shooter extends SubsystemBase {
     public boolean isRotated() {
         double currentRotation = kRotationMotor.getPosition().getValueAsDouble();
 
-        double targetRotation = (globalRotation / 360.0d) * Constants.ShooterConstants.kGearRatio;
+        double targetRotation = (globalRotation / 360.0d);
 
         return Math.abs(currentRotation - targetRotation) < 0.02;
     }
@@ -155,7 +156,7 @@ public class Shooter extends SubsystemBase {
     public boolean isElevated() {
         double currentPosition = kElevationMotor.getPosition().getValueAsDouble();
 
-        double targetPosition = (targetElevation / 360.0d) * Constants.ShooterConstants.kGearRatio;
+        double targetPosition = (targetElevation / 360.0d);
 
         return Math.abs(currentPosition - targetPosition) < 0.02; // 0.02 for tolerance
     }
@@ -170,13 +171,22 @@ public class Shooter extends SubsystemBase {
         close(kRightChamberTankSolenoid);
     }
 
+    public void closeSeal() {
+        close(kSealSolenoid);
+    }
+
+    public void stopMotors() {
+        kRotationMotor.setControl(openLoop.withOutput(0));
+        kElevationMotor.setControl(openLoop.withOutput(0));
+    }
+
     @Override
     public void periodic() {
         SmartDashboard.putBoolean("Shooter Zeroed", hasZeroedPosition);
         SmartDashboard.putNumber("Shooter Rotation (degrees)", 
-            kRotationMotor.getPosition().getValueAsDouble() * 360.0d / Constants.ShooterConstants.kGearRatio);
+            kRotationMotor.getPosition().getValueAsDouble() * 360.0d);
         SmartDashboard.putNumber("Shooter Elevation", 
-            kElevationMotor.getPosition().getValueAsDouble() * 360.0d / Constants.ShooterConstants.kGearRatio);
+            kElevationMotor.getPosition().getValueAsDouble() * 360.0d);
         SmartDashboard.putNumber("Shooter Global Rotation", globalRotation);
         SmartDashboard.putNumber("Shooter Barrel Index", barrelIndex);
         
